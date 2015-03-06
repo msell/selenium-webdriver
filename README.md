@@ -14,3 +14,7 @@ to see where homebrew installs packcages
 
 to start selenium server
 > java -jar /Library/Caches/Homebrew/selenium-server-standalone-2.44.0.jar
+
+
+ref
+https://code.google.com/p/selenium/wiki/WebDriverJs

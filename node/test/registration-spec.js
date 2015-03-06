@@ -1,4 +1,5 @@
 var webdriver = require('selenium-webdriver'),
+    test = require('selenium-webdriver/testing'),
     By = require('selenium-webdriver').By,
     until = require('selenium-webdriver').until,
     chrome = require('selenium-webdriver/chrome'),
@@ -9,27 +10,31 @@ var webdriver = require('selenium-webdriver'),
 
 describe('new user registration', function () {
 
-        describe('when invalid email is entered', function () {
-            it('should display an invalid email error', function () {
-                var driver = new webdriver.Builder()
-                    .usingServer('http://127.0.0.1:4444/wd/hub')
-                    .forBrowser('firefox')
-                    .build();
+    this.timeout(6000);
+    describe('when invalid email is entered', function () {
+        test.it('should display an invalid email error', function () {
+            var driver = new webdriver.Builder()
+                .usingServer('http://127.0.0.1:4444/wd/hub')
+                .forBrowser('firefox')
+                .build();
 
 
-                driver.get('http://quickstart-frontend.herokuapp.com/#/register');
+            var errorMessage = '';
 
-                driver.findElement(By.name('email')).sendKeys('CookieMonster');
+            driver.get('http://quickstart-frontend.herokuapp.com/#/register');
 
-                var errorMessage = '';
-                driver.findElement(By.xpath('/p'))
-                    .then(function (result) {
+            driver.findElement(By.name('email')).sendKeys('CookieMonster')
+                .then(function () {
+
+                    driver.findElement(By.xpath('/p'))
+                        .then(function (result) {
                             errorMessage = result;
-                        }
+                            driver.quit();
+                        })
+                });
 
+            //errorMessage.should().contain('Email is invalid');
 
-                        //errorMessage.should().contain('Email is invalid');
-                );
-            })
         })
+    })
 });
