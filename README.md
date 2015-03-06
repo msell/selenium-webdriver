@@ -4,6 +4,7 @@ Demo how to create UI tests in c#
 
 Show how to create snapshots of browser.
 
+https://github.com/agross/mspec-samples/tree/master/WebSpecs/LoginApp.Selenium.Specs
 
 
 if running on mac:
@@ -18,3 +19,5 @@ to start selenium server
 
 ref
 https://code.google.com/p/selenium/wiki/WebDriverJs
+
+
