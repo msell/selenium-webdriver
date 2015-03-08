@@ -1,40 +1,36 @@
-var webdriver = require('selenium-webdriver'),
-    test = require('selenium-webdriver/testing'),
-    By = require('selenium-webdriver').By,
-    until = require('selenium-webdriver').until,
-    chrome = require('selenium-webdriver/chrome'),
-    firefox = require('selenium-webdriver/firefox'),
-    chai = require('chai'),
-    should = require('chai').should();
+var chai = require('chai'),
+    assert = chai.assert,
+    expect = chai.expect,
+    should = chai.should(),
+    webdriverio = require('webdriverio');
 
+describe('my webdriverio tests', function () {
 
-describe('new user registration', function () {
+    this.timeout(99999999);
+    var client = {};
 
-    this.timeout(6000);
-    describe('when invalid email is entered', function () {
-        test.it('should display an invalid email error', function () {
-            var driver = new webdriver.Builder()
-                .usingServer('http://127.0.0.1:4444/wd/hub')
-                .forBrowser('firefox')
-                .build();
+    before(function (done) {
+        client = webdriverio.remote({
+            desiredCapabilities: {
+                browserName: 'chrome'
+            }
+        });
+        
+        client.init(done);
+    });
 
+    it('Github test', function (done) {
+        client
+            .url('http://quickstart-frontend.herokuapp.com/#/register')
+            .setValue('input[name=email]', 'cookieMonster')
+            .getText('//p', function (err, emailError) {
+                
+                expect(emailError[0]).to.equal('Email is invalid');
+            })
+            .call(done);
+    });
 
-            var errorMessage = '';
-
-            driver.get('http://quickstart-frontend.herokuapp.com/#/register');
-
-            driver.findElement(By.name('email')).sendKeys('CookieMonster')
-                .then(function () {
-
-                    driver.findElement(By.xpath('/p'))
-                        .then(function (result) {
-                            errorMessage = result;
-                            driver.quit();
-                        })
-                });
-
-            //errorMessage.should().contain('Email is invalid');
-
-        })
-    })
+    after(function (done) {
+        client.end(done);
+    });
 });

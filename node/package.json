@@ -9,7 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "selenium-webdriver": "^2.45.1"
+    "body-parser": "^1.12.0",
+    "chai-webdriver": "^1.1.1",
+    "selenium-webdriver": "^2.45.1",
+    "webdriverio": "^2.4.5"
   },
   "devDependencies": {
     "chai": "^2.1.1",
