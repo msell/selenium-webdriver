@@ -6,6 +6,8 @@ Show how to create snapshots of browser.
 
 https://github.com/agross/mspec-samples/tree/master/WebSpecs/LoginApp.Selenium.Specs
 
+https://sites.google.com/a/chromium.org/chromedriver/downloads
+
 
 if running on mac:
 brew install selenium-server-standalone

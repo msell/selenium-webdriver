@@ -7,39 +7,59 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Machine.Specifications;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium.Remote;
 
 namespace demo
 {
-    public class describe_user_registration
+    public class ScreenshotRemoteWebDriver : RemoteWebDriver, ITakesScreenshot
     {
+        public ScreenshotRemoteWebDriver(Uri address, ICapabilities capabilities)
+            : base(address, capabilities)
+        {
+        }
+
+        public Screenshot GetScreenshot()
+        {
+            var screenshotResponse = Execute(DriverCommand.Screenshot, null);
+            var base64 = screenshotResponse.Value.ToString();
+
+            return new Screenshot(base64);
+        }
+    }
+    public abstract class SeleniumSpecs
+    {
+        internal static ScreenshotRemoteWebDriver Selenium;
+
         Establish context = () =>
         {
-            _driver = new FirefoxDriver();
+            Selenium = new ScreenshotRemoteWebDriver(new Uri("http://localhost:9515/"), DesiredCapabilities.Chrome());           
         };
 
-        Cleanup teardown = () => _driver.Quit();
-        
-        public class when_user_enters_invalid_email
+        Cleanup after =
+            () => Selenium.Close();
+    }
+    public class describe_user_registration
+    {
+        public class when_user_enters_invalid_email : SeleniumSpecs
         {
             Establish context = () =>
             {
-                _driver.Navigate().GoToUrl(url);
-                _driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(2));
+                Selenium.Navigate().GoToUrl(url);
+                Selenium.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(2));
             };
 
             Because of = () =>
             {
-                var query = _driver.FindElement(By.Name("email"));
+                var query = Selenium.FindElement(By.Name("email"));
                 query.SendKeys("cookieMonster");
-                _error = _driver.FindElementByXPath("//p").Text;                                               
+                _error = Selenium.FindElementByXPath("//p").Text;                                               
             };
 
             It should_display_email_error = () =>
             {
                 _error.Should().Contain("Email is invalid");
-                _driver.GetScreenshot().SaveAsFile("invalidEmail.png", ImageFormat.Png);
+
+                Selenium.GetScreenshot().SaveAsFile("invalidEmail.png", ImageFormat.Png);
             };
             static IWebElement _emailError;
             static string _error;
@@ -56,6 +76,5 @@ namespace demo
         }
 
         static readonly string url = "http://quickstart-frontend.herokuapp.com/#/register";
-        static FirefoxDriver _driver;
     }
 }
