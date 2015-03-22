@@ -24,4 +24,6 @@ https://code.google.com/p/selenium/wiki/WebDriverJs
 
 ```
 $("#UserName").css("border", "3px solid red")
+
+$("#message").css("border", "3px solid green")
 ```
