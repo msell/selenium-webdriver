@@ -20,4 +20,8 @@ to start selenium server
 ref
 https://code.google.com/p/selenium/wiki/WebDriverJs
 
+## Inspect HTML and use jquery in browser to test DOM selectors for example:
 
+```
+$("#UserName").css("border", "3px solid red")
+```
