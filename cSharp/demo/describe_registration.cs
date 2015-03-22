@@ -31,14 +31,15 @@ namespace demo
 
             Because of = () =>
             {
-                var query = _driver.FindElement(By.Name("email"));
+                var query = _driver.FindElement(By.Id("UserName"));
                 query.SendKeys("cookieMonster");
-                _error = _driver.FindElementByXPath("//p").Text;                                               
+                query.Submit();
+                _error = _driver.FindElementById("message").Text;
             };
 
             It should_display_email_error = () =>
             {
-                _error.Should().Contain("Email is invalid");
+                _error.Should().Contain("Your Username or Password are incorrect.");
                 _driver.GetScreenshot().SaveAsFile("invalidEmail.png", ImageFormat.Png);
             };
             static IWebElement _emailError;
@@ -55,7 +56,7 @@ namespace demo
             It should_display_missmatch_error;
         }
 
-        static readonly string url = "http://quickstart-frontend.herokuapp.com/#/register";
+        static readonly string url = "http://10.1.104.13:8088/";
         static FirefoxDriver _driver;
     }
 }
