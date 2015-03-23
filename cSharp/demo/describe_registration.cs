@@ -51,6 +51,7 @@ namespace demo
             Establish context = () =>
             {
                 _driver.Navigate().GoToUrl(url);
+                _driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(3));
             };
 
             Because of = () =>
@@ -62,11 +63,11 @@ namespace demo
                 password.SendKeys(_password);
 
                 password.Submit();
-
+                
                 var search = _driver.FindElementByCssSelector(".button.primary");
                 search.Click();
 
-                _events = _driver.FindElementsByClassName(".item.event-item");
+                _events = _driver.FindElementsByCssSelector(".item.event-item");
             };
             It should_find_some_events = () => _events.Count.Should().Be(2);
 
