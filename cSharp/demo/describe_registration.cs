@@ -46,17 +46,37 @@ namespace demo
             static string _error;
         }
 
-        public class when_user_enters_valid_email
+        public class when_searching_for_events
         {
-            It should_not_display_email_error;
+            Establish context = () =>
+            {
+                _driver.Navigate().GoToUrl(url);
+            };
+
+            Because of = () =>
+            {
+                var username = _driver.FindElement(By.Id("UserName"));
+                username.SendKeys(_username);
+
+                var password = _driver.FindElementById("Password");
+                password.SendKeys(_password);
+
+                password.Submit();
+
+                var search = _driver.FindElementByCssSelector(".button.primary");
+                search.Click();
+
+                _events = _driver.FindElementsByClassName(".item.event-item");
+            };
+            It should_find_some_events = () => _events.Count.Should().Be(2);
+
+            static IReadOnlyCollection<IWebElement> _events;
         }
 
-        public class when_user_has_password_missmatch
-        {
-            It should_display_missmatch_error;
-        }
 
         static readonly string url = "http://10.1.104.13:8088/";
         static FirefoxDriver _driver;
+        static string _username = "wgvadmin";
+        static string _password = "Pass@word1";
     }
 }
