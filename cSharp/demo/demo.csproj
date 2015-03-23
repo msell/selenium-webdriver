@@ -43,6 +43,7 @@
       <HintPath>..\packages\Machine.Specifications.0.9.1\lib\net45\Machine.Specifications.Clr4.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
@@ -59,9 +60,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="describe_registration.cs" />
+    <Compile Include="Infrastructure\Browser.cs" />
+    <Compile Include="Infrastructure\ChromeDriver.cs" />
+    <Compile Include="Infrastructure\FreePort\Launcher.cs" />
+    <Compile Include="Infrastructure\FreePort\Settings.cs" />
+    <Compile Include="Infrastructure\IisExpressStarter.cs" />
+    <Compile Include="Infrastructure\IIsExpress\LogListener.cs" />
+    <Compile Include="Infrastructure\IIsExpress\Settings.cs" />
+    <Compile Include="Infrastructure\IStartable.cs" />
+    <Compile Include="Infrastructure\ResultSupplementer.cs" />
+    <Compile Include="Infrastructure\VerifyRequestStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
