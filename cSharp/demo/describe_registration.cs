@@ -42,7 +42,6 @@ namespace demo
                 _error.Should().Contain("Your Username or Password are incorrect.");
                 _driver.GetScreenshot().SaveAsFile("invalidEmail.png", ImageFormat.Png);
             };
-            static IWebElement _emailError;
             static string _error;
         }
 
@@ -69,7 +68,7 @@ namespace demo
 
                 _events = _driver.FindElementsByCssSelector(".item.event-item");
             };
-            It should_find_some_events = () => _events.Count.Should().Be(2);
+            It should_find_some_events = () => _events.Count.Should().BeGreaterThan(0);
 
             static IReadOnlyCollection<IWebElement> _events;
         }
