@@ -25,7 +25,7 @@ namespace demo
         {
             Establish context = () =>
             {
-                _driver.Navigate().GoToUrl(url);
+                _driver.Navigate().GoToUrl(_url);
                 _driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(2));
             };
 
@@ -49,7 +49,7 @@ namespace demo
         {
             Establish context = () =>
             {
-                _driver.Navigate().GoToUrl(url);
+                _driver.Navigate().GoToUrl(_url);
                 _driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(3));
             };
 
@@ -74,7 +74,8 @@ namespace demo
         }
 
 
-        static readonly string url = "http://10.1.104.13:8088/";
+        //static readonly string _url = "http://10.1.104.13:8088/";
+        static readonly string _url = "http://10.1.18.4:90/";
         static FirefoxDriver _driver;
         static string _username = "wgvadmin";
         static string _password = "Pass@word1";
