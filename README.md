@@ -1,6 +1,8 @@
 
 [Selenium IDE Plugin for Firefox](http://release.seleniumhq.org/selenium-ide/2.8.0/selenium-ide-2.8.0.xpi) allows you to easily record, edit and replay test cases in the browser.
 
+During playback if you get a timing issue, try using pause setting the target to the number of milliseconds you want to delay in order to fine tune the playback.
+
 # selenium-webdriver
 
 Demo how to create UI tests in c#
