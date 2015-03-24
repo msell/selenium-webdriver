@@ -1,3 +1,6 @@
+
+[Selenium IDE Plugin for Firefox](http://release.seleniumhq.org/selenium-ide/2.8.0/selenium-ide-2.8.0.xpi) allows you to easily record, edit and replay test cases in the browser.
+
 # selenium-webdriver
 
 Demo how to create UI tests in c#
